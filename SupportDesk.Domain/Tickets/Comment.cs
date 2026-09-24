@@ -1,6 +1,6 @@
 ﻿namespace SupportDesk.Domain.Tickets;
 
-internal class Comment
+public class Comment
 {
     public string Text { get; private set; }
     public DateTime CreatedAt { get; private set; }
