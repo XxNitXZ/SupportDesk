@@ -15,6 +15,19 @@
 
         public SupportTicket(string title, string description, Customer customer, TicketPriority priority)
         {
+            if(string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("Title cannot be empty.");
+            }
+            if(string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("Description cannot be empty.");
+            }
+            if(customer == null)
+            {
+                throw new ArgumentException("Customer cannot be empty.");
+            }
+
             Title = title;
             Description = description;
             Customer = customer;
@@ -23,6 +36,8 @@
             Status = TicketStatus.New;
             Comments = new List<Comment>();
             CreatedAt = DateTime.Now; 
+            
         }
+
     }
 }
