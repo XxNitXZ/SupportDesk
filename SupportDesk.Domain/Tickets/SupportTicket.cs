@@ -10,6 +10,7 @@
         public TicketStatus Status { get; private set; }  
         public string? Technician { get; private set; }
         public List<Comment> Comments { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
 
         public SupportTicket(string title, string description, Customer customer, TicketPriority priority)
@@ -21,6 +22,7 @@
             Id = Guid.NewGuid();
             Status = TicketStatus.New;
             Comments = new List<Comment>();
+            CreatedAt = DateTime.Now; 
         }
     }
 }
