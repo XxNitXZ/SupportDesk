@@ -1,4 +1,6 @@
-﻿namespace SupportDesk.Domain.Tickets
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace SupportDesk.Domain.Tickets
 {
     public class SupportTicket
     {
@@ -35,9 +37,58 @@
             Id = Guid.NewGuid();
             Status = TicketStatus.New;
             Comments = new List<Comment>();
-            CreatedAt = DateTime.Now; 
-            
+            CreatedAt = DateTime.Now;
+
         }
 
+        public void AssignTechnician(string technician)
+        {
+            if(string.IsNullOrWhiteSpace(technician))
+            {
+                throw new ArgumentException("Technician cannot be empty.");
+            }
+            Technician = technician;
+        }
+        
+        public void ChangeStatus(TicketStatus status)
+        {
+            if(status == TicketStatus.InProgress || status == TicketStatus.Resolved)
+            {
+                if(string.IsNullOrWhiteSpace(Technician))
+                {
+                    throw new ArgumentException("A technician is required for this status.");
+                }
+                
+            }
+            Status = status;
+        }
+
+        public void ChangePriority(TicketPriority priority)
+        {
+            Priority = priority;
+        }
+
+        public void UpdateDetails(string title, string description)
+        {
+            if(string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("Title cannot be empty.");
+            }
+            if(string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("Description cannot be empty.");
+            }
+            Title = title;
+            Description = description;
+        }
+        
+        public void AddComment(Comment comment)
+        {
+            if(comment == null)
+            {
+                throw new ArgumentException("Comment cannot be empty.");
+            }
+            Comments.Add(comment);
+        }
     }
 }
