@@ -8,6 +8,7 @@ namespace SupportDesk.Domain.Tickets
         public string Title { get; private set; }
         public string Description { get; private set; }
         public Customer Customer { get; private set; }
+        public Guid CustomerId { get; private set; }
         public TicketPriority Priority { get; private set; }
         public TicketStatus Status { get; private set; }  
         public string? Technician { get; private set; }
@@ -33,6 +34,7 @@ namespace SupportDesk.Domain.Tickets
             Title = title;
             Description = description;
             Customer = customer;
+            CustomerId = customer.Id;
             Priority = priority;
             Id = Guid.NewGuid();
             Status = TicketStatus.New;
