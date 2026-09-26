@@ -8,7 +8,7 @@ public class Comment
     public Comment(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
-            throw new ArgumentException("Kommentar får inte vara tom.");
+            throw new ArgumentException("Comment cannot be empty");
 
         Text = text;
         CreatedAt = DateTime.Now;
