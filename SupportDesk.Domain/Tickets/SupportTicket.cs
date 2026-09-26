@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace SupportDesk.Domain.Tickets
+﻿namespace SupportDesk.Domain.Tickets
 {
     public class SupportTicket
     {
@@ -8,89 +6,86 @@ namespace SupportDesk.Domain.Tickets
         public string Title { get; private set; }
         public string Description { get; private set; }
         public Customer Customer { get; private set; }
-        public Guid CustomerId { get; private set; }
         public TicketPriority Priority { get; private set; }
-        public TicketStatus Status { get; private set; }  
+        public TicketStatus Status { get; private set; }
         public string? Technician { get; private set; }
-        public List<Comment> Comments { get; private set; }
         public DateTime CreatedAt { get; private set; }
-
-
+        private readonly List<Comment> _comments;
         public SupportTicket(string title, string description, Customer customer, TicketPriority priority)
         {
-            if(string.IsNullOrWhiteSpace(title))
+            if (string.IsNullOrWhiteSpace(title))
             {
                 throw new ArgumentException("Title cannot be empty.");
             }
-            if(string.IsNullOrWhiteSpace(description))
+            if (string.IsNullOrWhiteSpace(description))
             {
                 throw new ArgumentException("Description cannot be empty.");
             }
-            if(customer == null)
+            if (customer == null)
             {
                 throw new ArgumentException("Customer cannot be empty.");
             }
 
-            Title = title;
-            Description = description;
-            Customer = customer;
-            CustomerId = customer.Id;
-            Priority = priority;
             Id = Guid.NewGuid();
+            Title = title.Trim();
+            Description = description.Trim();
+            Customer = customer;
+            Priority = priority;
             Status = TicketStatus.New;
-            Comments = new List<Comment>();
+            Technician = null;
             CreatedAt = DateTime.Now;
 
+            _comments = new List<Comment>();
         }
-
         public void AssignTechnician(string technician)
         {
-            if(string.IsNullOrWhiteSpace(technician))
+            if (string.IsNullOrWhiteSpace(technician))
             {
                 throw new ArgumentException("Technician cannot be empty.");
             }
-            Technician = technician;
+            Technician = technician.Trim();
         }
-        
+
         public void ChangeStatus(TicketStatus status)
         {
-            if(status == TicketStatus.InProgress || status == TicketStatus.Resolved)
+            if (status == TicketStatus.InProgress || status == TicketStatus.Resolved)
             {
-                if(string.IsNullOrWhiteSpace(Technician))
+                if (string.IsNullOrWhiteSpace(Technician))
                 {
                     throw new ArgumentException("A technician is required for this status.");
                 }
-                
+
             }
             Status = status;
         }
-
         public void ChangePriority(TicketPriority priority)
         {
             Priority = priority;
         }
-
         public void UpdateDetails(string title, string description)
         {
-            if(string.IsNullOrWhiteSpace(title))
+            if (string.IsNullOrWhiteSpace(title))
             {
                 throw new ArgumentException("Title cannot be empty.");
             }
-            if(string.IsNullOrWhiteSpace(description))
+            if (string.IsNullOrWhiteSpace(description))
             {
                 throw new ArgumentException("Description cannot be empty.");
             }
-            Title = title;
-            Description = description;
+            Title = title.Trim();
+            Description = description.Trim();
         }
-        
         public void AddComment(Comment comment)
         {
-            if(comment == null)
+            if (comment == null)
             {
                 throw new ArgumentException("Comment cannot be empty.");
             }
-            Comments.Add(comment);
+            _comments.Add(comment);
+        }
+        public IReadOnlyList<Comment> GetComments()
+        {
+            return _comments;
         }
     }
 }
