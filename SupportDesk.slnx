@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="SupportDesk.Application/SupportDesk.Application.csproj" Id="c4805c0c-3dff-4df9-88d9-9dfb7df7b18e" />
   <Project Path="SupportDesk.Domain/SupportDesk.Domain.csproj" />
 </Solution>
