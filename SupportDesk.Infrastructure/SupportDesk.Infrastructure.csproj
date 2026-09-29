@@ -11,8 +11,4 @@
     <ProjectReference Include="..\SupportDesk.Domain\SupportDesk.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>
