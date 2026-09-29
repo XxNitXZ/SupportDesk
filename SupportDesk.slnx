@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="SupportDesk.Application/SupportDesk.Application.csproj" Id="c4805c0c-3dff-4df9-88d9-9dfb7df7b18e" />
   <Project Path="SupportDesk.Domain/SupportDesk.Domain.csproj" />
+  <Project Path="SupportDesk.Infrastructure/SupportDesk.Infrastructure.csproj" Id="b500ffb7-5084-4fea-856f-67fde9b0a9a8" />
 </Solution>
