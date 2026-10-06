@@ -9,6 +9,23 @@
     mc:Ignorable="d">
 
     <Grid>
+      <StackPanel Margin="24" Spacing="16">
+        
+        <TextBlock Text="Customers"
+                   FontSize="32"
+                   FontWeight="SemiBold"/>
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
+                <TextBox PlaceholderText="Search customers..." />
+
+                <Button Grid.Column="1"
+                        Content="+ Add Customer" />
+            </Grid>
+
+        </StackPanel>
     </Grid>
 </Page>
