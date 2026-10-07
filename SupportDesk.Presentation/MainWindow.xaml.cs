@@ -5,10 +5,10 @@ namespace SupportDesk.Presentation;
 
 public sealed partial class MainWindow : Window
 {
-    public MainWindow(TicketsPage ticketsPage)
+    public MainWindow(NewTicketPage newTicketPage)
     {
         InitializeComponent();
 
-        MainFrame.Content = ticketsPage;
+        MainFrame.Content = newTicketPage;
     }
 }

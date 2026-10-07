@@ -13,12 +13,14 @@ public static class DependencyInjection
         services.AddTransient<CustomersViewModel>();
         services.AddTransient<TicketsViewModel>();
         services.AddTransient<TicketDetailViewModel>();
+        services.AddTransient<NewTicketViewModel>();
 
         // Views
         services.AddTransient<DashboardPage>();
         services.AddTransient<CustomersPage>();
         services.AddTransient<TicketsPage>();
         services.AddTransient<TicketDetailPage>();
+        services.AddTransient<NewTicketPage>();
 
         // MainWindow
         services.AddTransient<MainWindow>();

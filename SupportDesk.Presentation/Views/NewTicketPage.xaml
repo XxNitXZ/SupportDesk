@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SupportDesk.Presentation.Views.NewTicketPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="32">
+
+        <StackPanel Spacing="16">
+
+            <TextBlock
+                Text="New Ticket"
+                FontSize="32"
+                FontWeight="SemiBold"/>
+
+            <TextBox
+                Header="Title"
+                PlaceholderText="Enter ticket title"
+                Text="{Binding Title, Mode=TwoWay}"/>
+
+            <TextBox
+                Header="Description"
+                PlaceholderText="Describe the problem"
+                Text="{Binding Description, Mode=TwoWay}"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                Height="120"/>
+
+            <Grid ColumnSpacing="16">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox
+                    Grid.Column="0"
+                    Header="Customer"
+                    PlaceholderText="Select customer"
+                    ItemsSource="{Binding Customers}"
+                    DisplayMemberPath="Name"/>
+
+                <ComboBox
+                    Grid.Column="1"
+                    Header="Priority"
+                    PlaceholderText="Select priority"
+                    ItemsSource="{Binding Priorities}"
+                    SelectedItem="{Binding SelectedPriority, Mode=TwoWay}"/>
+
+                <Button
+                    Grid.Column="2"
+                    Content="Create Ticket"
+                    VerticalAlignment="Bottom"
+                    Click="CreateTicketButton_Click"/>
+
+            </Grid>
+
+        </StackPanel>
+
+    </Grid>
+
+</Page>
