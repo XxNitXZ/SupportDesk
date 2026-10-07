@@ -26,6 +26,20 @@
                         Content="+ Add Customer" />
             </Grid>
 
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Name"
+               FontWeight="SemiBold" />
+
+                <TextBlock Grid.Column="1"
+               Text="Email"
+               FontWeight="SemiBold" />
+            </Grid>
+
         </StackPanel>
     </Grid>
 </Page>
