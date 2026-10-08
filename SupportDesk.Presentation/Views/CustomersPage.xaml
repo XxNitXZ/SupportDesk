@@ -44,6 +44,25 @@
            Style="{StaticResource CardTitleStyle}" />
             </Grid>
 
+            <ListView ItemsSource="{Binding Customers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                        <Grid ColumnSpacing="16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="{Binding Name}" />
+
+                            <TextBlock Grid.Column="1"
+           Text="{Binding Email}" />
+                            
+                        </Grid>
+                    </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+
         </StackPanel>
     </Grid>
 </Page>
