@@ -3,12 +3,220 @@
     x:Class="SupportDesk.Presentation.Views.TicketDetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SupportDesk.Presentation.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="{StaticResource AppBackgroundBrush}">
 
-    <Grid>
+    <ScrollViewer>
+        <StackPanel
+            Padding="42"
+            Spacing="24">
 
-    </Grid>
+            <Button
+                Content="← Back"
+                Click="BackButton_Click"
+                HorizontalAlignment="Right"
+                Style="{StaticResource PrimaryButtonStyle}"/>
+
+            <!-- HEADER -->
+            <StackPanel Spacing="6">
+                <TextBlock
+                    Text="Ticket Details"
+                    Style="{StaticResource PageTitleStyle}"/>
+
+                <TextBlock
+                    Text="View and manage support ticket"
+                    Style="{StaticResource PageSubtitleStyle}"/>
+            </StackPanel>
+
+
+            <!-- TICKET INFORMATION -->
+            <Border
+                Style="{StaticResource ContentCardStyle}"
+                Padding="24">
+
+                <StackPanel Spacing="18">
+
+                    <!-- TITLE -->
+                    <StackPanel Spacing="6">
+                        <TextBlock
+                            Text="Title"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="14"
+                            FontWeight="SemiBold"/>
+
+                        <TextBlock
+                            Text="Cannot connect to VPN"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="24"
+                            FontWeight="SemiBold"/>
+                    </StackPanel>
+
+
+                    <!-- DESCRIPTION -->
+                    <StackPanel Spacing="6">
+                        <TextBlock
+                            Text="Description"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="14"
+                            FontWeight="SemiBold"/>
+
+                        <TextBlock
+                            Text="The customer is unable to connect to the company VPN. The connection fails after entering the login credentials."
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="15"
+                            TextWrapping="Wrap"/>
+                    </StackPanel>
+
+
+                    <!-- CUSTOMER / PRIORITY -->
+                    <Grid ColumnSpacing="40">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel
+                            Grid.Column="0"
+                            Spacing="6">
+
+                            <TextBlock
+                                Text="Customer"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="14"
+                                FontWeight="SemiBold"/>
+
+                            <TextBlock
+                                Text="Test Customer"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="16"/>
+                        </StackPanel>
+
+
+                        <StackPanel
+                            Grid.Column="1"
+                            Spacing="6">
+
+                            <TextBlock
+                                Text="Priority"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="14"
+                                FontWeight="SemiBold"/>
+
+                            <TextBlock
+                                Text="High"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="16"/>
+                        </StackPanel>
+
+                    </Grid>
+
+
+                    <!-- STATUS / TECHNICIAN -->
+                    <Grid ColumnSpacing="40">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel
+                            Grid.Column="0"
+                            Spacing="6">
+
+                            <TextBlock
+                                Text="Status"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="14"
+                                FontWeight="SemiBold"/>
+
+                            <TextBlock
+                                Text="In Progress"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="16"/>
+                        </StackPanel>
+
+
+                        <StackPanel
+                            Grid.Column="1"
+                            Spacing="6">
+
+                            <TextBlock
+                                Text="Technician"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="14"
+                                FontWeight="SemiBold"/>
+
+                            <TextBlock
+                                Text="Erik"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontSize="16"/>
+                        </StackPanel>
+
+                    </Grid>
+
+
+                    <!-- CREATED -->
+                    <StackPanel Spacing="6">
+
+                        <TextBlock
+                            Text="Created"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="14"
+                            FontWeight="SemiBold"/>
+
+                        <TextBlock
+                            Text="2026-10-08 14:30"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="16"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Border>
+
+
+            <!-- COMMENTS -->
+            <Border
+                Style="{StaticResource ContentCardStyle}"
+                Padding="24">
+
+                <StackPanel Spacing="16">
+
+                    <TextBlock
+                        Text="Comments"
+                        Foreground="{StaticResource MainTextBrush}"
+                        FontSize="20"
+                        FontWeight="SemiBold"/>
+
+                    <Border
+                        Background="{StaticResource AppBackgroundBrush}"
+                        CornerRadius="8"
+                        Padding="16">
+
+                        <StackPanel Spacing="6">
+
+                            <TextBlock
+                                Text="Erik • 2026-10-08 14:45"
+                                Foreground="{StaticResource MainTextBrush}"
+                                FontWeight="SemiBold"/>
+
+                            <TextBlock
+                                Text="I have started investigating the VPN connection issue."
+                                Foreground="{StaticResource MainTextBrush}"
+                                TextWrapping="Wrap"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+                </StackPanel>
+
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+
 </Page>
