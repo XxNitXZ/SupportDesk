@@ -23,6 +23,16 @@ public class JsonCustomerRepository : ICustomerRepository
     {
         var customers = await GetAllAsync();
 
+        System.Diagnostics.Debug.WriteLine(
+                $"LOOKING FOR ID: {id}");
+
+        foreach (var customer in customers)
+        {
+            System.Diagnostics.Debug.WriteLine(
+                $"CUSTOMER FROM JSON: {customer.Name} / ID: {customer.Id}");
+
+        }
+
         return customers.FirstOrDefault(customer => customer.Id == id);
     }
 

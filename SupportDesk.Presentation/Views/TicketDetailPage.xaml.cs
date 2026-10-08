@@ -1,30 +1,36 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
+using SupportDesk.Presentation.Interfaces;
 using SupportDesk.Presentation.ViewModels;
 using System;
+using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.Views;
 
 public sealed partial class TicketDetailPage : Page
 {
     private readonly TicketDetailViewModel _viewModel;
+    private readonly INavigationService _navigationService;
 
-    public TicketDetailPage(TicketDetailViewModel viewModel)
+    public TicketDetailPage(
+        TicketDetailViewModel viewModel,
+        INavigationService navigationService)
     {
         InitializeComponent();
 
         _viewModel = viewModel;
+        _navigationService = navigationService;
+
         DataContext = _viewModel;
     }
 
-    protected override async void OnNavigatedTo(
-        NavigationEventArgs e)
+    public Task LoadTicketAsync(Guid ticketId)
     {
-        base.OnNavigatedTo(e);
+        return _viewModel.LoadAsync(ticketId);
+    }
 
-        if (e.Parameter is Guid ticketId)
-        {
-            await _viewModel.LoadAsync(ticketId);
-        }
+    private void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+        _navigationService.GoBack();
     }
 }

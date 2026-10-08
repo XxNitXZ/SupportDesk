@@ -5,62 +5,115 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="{StaticResource AppBackgroundBrush}">
 
-    <Grid Padding="32">
+    <ScrollViewer>
+        <StackPanel
+            Padding="42"
+            Spacing="24">
 
-        <StackPanel Spacing="16">
+            <!-- HEADER -->
+            <StackPanel Spacing="6">
 
-            <TextBlock
-                Text="New Ticket"
-                FontSize="32"
-                FontWeight="SemiBold"/>
+                <TextBlock
+                    Text="New Ticket"
+                    Style="{StaticResource PageTitleStyle}"/>
 
-            <TextBox
-                Header="Title"
-                PlaceholderText="Enter ticket title"
-                Text="{Binding Title, Mode=TwoWay}"/>
+                <TextBlock
+                    Text="Create a new support ticket"
+                    Style="{StaticResource PageSubtitleStyle}"/>
 
-            <TextBox
-                Header="Description"
-                PlaceholderText="Describe the problem"
-                Text="{Binding Description, Mode=TwoWay}"
-                AcceptsReturn="True"
-                TextWrapping="Wrap"
-                Height="120"/>
+            </StackPanel>
 
-            <Grid ColumnSpacing="16">
+            <!-- TITLE -->
+            <StackPanel Spacing="8">
+
+                <TextBlock
+                    Text="Title"
+                    Foreground="{StaticResource MainTextBrush}"
+                    FontSize="14"
+                    FontWeight="SemiBold"/>
+
+                <TextBox
+                    PlaceholderText="Enter ticket title"
+                    Text="{Binding Title, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBoxStyle}"/>
+
+            </StackPanel>
+
+            <!-- DESCRIPTION -->
+            <StackPanel Spacing="8">
+
+                <TextBlock
+                    Text="Description"
+                    Foreground="{StaticResource MainTextBrush}"
+                    FontSize="14"
+                    FontWeight="SemiBold"/>
+
+                <TextBox
+                    PlaceholderText="Describe the problem"
+                    Text="{Binding Description, Mode=TwoWay}"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    Height="130"
+                    VerticalContentAlignment="Top"
+                    Style="{StaticResource InputTextBoxStyle}"/>
+
+            </StackPanel>
+
+            <!-- CUSTOMER / PRIORITY -->
+            <Grid ColumnSpacing="20">
 
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <ComboBox
+                <!-- CUSTOMER -->
+                <StackPanel
                     Grid.Column="0"
-                    Header="Customer"
-                    PlaceholderText="Select customer"
-                    ItemsSource="{Binding Customers}"
-                    DisplayMemberPath="Name"/>
+                    Spacing="8">
 
-                <ComboBox
-                    Grid.Column="1"
-                    Header="Priority"
-                    PlaceholderText="Select priority"
-                    ItemsSource="{Binding Priorities}"
-                    SelectedItem="{Binding SelectedPriority, Mode=TwoWay}"/>
+                    <ComboBox
+                        Header="Customer"
+                        PlaceholderText="Select customer"
+                        ItemsSource="{Binding Customers}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBoxStyle}"/>
 
-                <Button
-                    Grid.Column="2"
-                    Content="Create Ticket"
-                    VerticalAlignment="Bottom"
-                    Click="CreateTicketButton_Click"/>
+                </StackPanel>
+
+                <!-- PRIORITY -->
+                <StackPanel
+                        Grid.Column="1"
+                        Spacing="8">
+
+                    <TextBlock
+                        Text="Priority"
+                        Foreground="{StaticResource MainTextBrush}"
+                        FontSize="14"
+                        FontWeight="SemiBold"/>
+
+                    <ComboBox
+                        PlaceholderText="Select priority"
+                        ItemsSource="{Binding Priorities}"
+                        SelectedItem="{Binding SelectedPriority, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBoxStyle}"/>
+
+                </StackPanel>
 
             </Grid>
 
-        </StackPanel>
+            <!-- CREATE -->
+            <Button
+                Content="Create Ticket"
+                HorizontalAlignment="Right"
+                Click="CreateTicketButton_Click"
+                Style="{StaticResource PrimaryButtonStyle}"/>
 
-    </Grid>
+        </StackPanel>
+    </ScrollViewer>
 
 </Page>

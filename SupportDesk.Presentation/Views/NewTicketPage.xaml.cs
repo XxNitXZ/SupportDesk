@@ -1,5 +1,5 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 using SupportDesk.Presentation.ViewModels;
 using System;
 
@@ -15,19 +15,20 @@ public sealed partial class NewTicketPage : Page
 
         _viewModel = viewModel;
         DataContext = _viewModel;
+
+        Loaded += NewTicketPage_Loaded;
     }
 
-    protected override async void OnNavigatedTo(
-        NavigationEventArgs e)
+    private async void NewTicketPage_Loaded(
+        object sender,
+        RoutedEventArgs e)
     {
-        base.OnNavigatedTo(e);
-
         await _viewModel.LoadCustomersAsync();
     }
 
     private async void CreateTicketButton_Click(
-    object sender,
-    Microsoft.UI.Xaml.RoutedEventArgs e)
+        object sender,
+        RoutedEventArgs e)
     {
         try
         {
