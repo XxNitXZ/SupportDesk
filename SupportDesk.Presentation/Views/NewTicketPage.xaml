@@ -8,26 +8,46 @@
     mc:Ignorable="d"
     Background="{StaticResource AppBackgroundBrush}">
 
-    <ScrollViewer>
+    <Grid Padding="12">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- HEADER -->
         <StackPanel
-            Padding="42"
-            Spacing="24">
+            Grid.Row="0"
+            Spacing="4">
 
-            <!-- HEADER -->
-            <StackPanel Spacing="6">
+            <TextBlock
+                Text="New Ticket"
+                Style="{StaticResource PageTitleStyle}"/>
 
-                <TextBlock
-                    Text="New Ticket"
-                    Style="{StaticResource PageTitleStyle}"/>
+            <TextBlock
+                Text="Create a new support ticket"
+                Style="{StaticResource PageSubtitleStyle}"/>
 
-                <TextBlock
-                    Text="Create a new support ticket"
-                    Style="{StaticResource PageSubtitleStyle}"/>
+        </StackPanel>
 
-            </StackPanel>
+
+        <!-- FORM -->
+        <Grid
+            Grid.Row="1"
+            Margin="0,24,0,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
 
             <!-- TITLE -->
-            <StackPanel Spacing="8">
+            <StackPanel
+                Grid.Row="0"
+                Spacing="6">
 
                 <TextBlock
                     Text="Title"
@@ -38,12 +58,17 @@
                 <TextBox
                     PlaceholderText="Enter ticket title"
                     Text="{Binding Title, Mode=TwoWay}"
-                    Style="{StaticResource InputTextBoxStyle}"/>
+                    Style="{StaticResource InputTextBoxStyle}"
+                    Height="44"/>
 
             </StackPanel>
 
+
             <!-- DESCRIPTION -->
-            <StackPanel Spacing="8">
+            <StackPanel
+                Grid.Row="1"
+                Margin="0,16,0,0"
+                Spacing="6">
 
                 <TextBlock
                     Text="Description"
@@ -56,64 +81,100 @@
                     Text="{Binding Description, Mode=TwoWay}"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
-                    Height="130"
+                    Height="90"
                     VerticalContentAlignment="Top"
                     Style="{StaticResource InputTextBoxStyle}"/>
 
             </StackPanel>
 
-            <!-- CUSTOMER / PRIORITY -->
-            <Grid ColumnSpacing="20">
+
+            <!-- BOTTOM AREA -->
+            <Grid
+                Grid.Row="2"
+                Margin="0,20,0,0"
+                ColumnSpacing="40">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- CUSTOMER -->
+
+                <!-- LEFT HALF -->
                 <StackPanel
                     Grid.Column="0"
-                    Spacing="8">
+                    Spacing="14">
 
-                    <ComboBox
-                        Header="Customer"
-                        PlaceholderText="Select customer"
-                        ItemsSource="{Binding Customers}"
-                        DisplayMemberPath="Name"
-                        SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
-                        Style="{StaticResource InputComboBoxStyle}"/>
+                    <!-- CUSTOMER -->
+                    <StackPanel Spacing="6">
+
+                        <TextBlock
+                            Text="Customer"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="14"
+                            FontWeight="SemiBold"/>
+
+                        <ComboBox
+                            PlaceholderText="Select customer"
+                            ItemsSource="{Binding Customers}"
+                            DisplayMemberPath="Name"
+                            SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                            Style="{StaticResource InputComboBoxStyle}"
+                            Height="44"
+                            HorizontalAlignment="Stretch"/>
+
+                    </StackPanel>
+
+
+                    <!-- PRIORITY -->
+                    <StackPanel Spacing="6">
+
+                        <TextBlock
+                            Text="Priority"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="14"
+                            FontWeight="SemiBold"/>
+
+                        <ComboBox
+                            PlaceholderText="Select priority"
+                            ItemsSource="{Binding Priorities}"
+                            SelectedItem="{Binding SelectedPriority, Mode=TwoWay}"
+                            Style="{StaticResource InputComboBoxStyle}"
+                            Height="44"
+                            HorizontalAlignment="Stretch"/>
+
+                    </StackPanel>
 
                 </StackPanel>
 
-                <!-- PRIORITY -->
+
+                <!-- RIGHT HALF -->
                 <StackPanel
-                        Grid.Column="1"
-                        Spacing="8">
+                    Grid.Column="1"
+                    Spacing="30"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right">
 
-                    <TextBlock
-                        Text="Priority"
-                        Foreground="{StaticResource MainTextBrush}"
-                        FontSize="14"
-                        FontWeight="SemiBold"/>
+                    <Button
+                        Content="Create Ticket"
+                        Click="CreateTicketButton_Click"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Height="44"
+                        Width="200"/>
 
-                    <ComboBox
-                        PlaceholderText="Select priority"
-                        ItemsSource="{Binding Priorities}"
-                        SelectedItem="{Binding SelectedPriority, Mode=TwoWay}"
-                        Style="{StaticResource InputComboBoxStyle}"/>
+                    <Button
+                        Content="Cancel"
+                        Click="CancelButton_Click"
+                        Style="{StaticResource DangerButtonStyle}"
+                        Height="44"
+                        Width="200"/>
 
                 </StackPanel>
 
             </Grid>
 
-            <!-- CREATE -->
-            <Button
-                Content="Create Ticket"
-                HorizontalAlignment="Right"
-                Click="CreateTicketButton_Click"
-                Style="{StaticResource PrimaryButtonStyle}"/>
+        </Grid>
 
-        </StackPanel>
-    </ScrollViewer>
+    </Grid>
 
 </Page>
