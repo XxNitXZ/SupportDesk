@@ -1,12 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SupportDesk.Application.Interfaces;
+using SupportDesk.Domain;
+using SupportDesk.Presentation.Interfaces;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.ViewModels
 {
-    internal class CustomersViewModel
+    public partial class CustomersViewModel : ObservableObject
     {
+        private readonly ICustomerService _customerService;
+        public ObservableCollection<Customer> Customers { get; } = new();
+
+        public CustomersViewModel(ICustomerService customerService)
+        {
+            _customerService = customerService;
+
+        }
+
+        public async Task LoadAsync()
+        {
+            var customers = await _customerService.GetAllAsync();
+
+            Customers.Clear();
+
+            foreach (var customer in customers)
+            {
+                Customers.Add(customer);
+            }
+        }
     }
-}
+} 

@@ -22,10 +22,11 @@
 
                 <TextBox PlaceholderText="Search customers..." 
                          Style="{StaticResource InputTextBoxStyle}"/>
-
+               
                 <Button Grid.Column="1"
                         Content="+ Add Customer"
                         Style="{StaticResource PrimaryButtonStyle}" />
+                
             </Grid>
 
             <Grid ColumnSpacing="16">
