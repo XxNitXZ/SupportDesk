@@ -10,20 +10,22 @@
 
     <Grid>
       <StackPanel Margin="24" Spacing="16">
-        
-        <TextBlock Text="Customers"
-                   FontSize="32"
-                   FontWeight="SemiBold"/>
+
+           <TextBlock Text="Customers"
+           Style="{StaticResource PageTitleStyle}"/>
+          
             <Grid ColumnSpacing="12">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox PlaceholderText="Search customers..." />
+                <TextBox PlaceholderText="Search customers..." 
+                         Style="{StaticResource InputTextBoxStyle}"/>
 
                 <Button Grid.Column="1"
-                        Content="+ Add Customer" />
+                        Content="+ Add Customer"
+                        Style="{StaticResource PrimaryButtonStyle}" />
             </Grid>
 
             <Grid ColumnSpacing="16">
@@ -32,12 +34,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
+
                 <TextBlock Text="Name"
-               FontWeight="SemiBold" />
+           Style="{StaticResource CardTitleStyle}" />
 
                 <TextBlock Grid.Column="1"
-               Text="Email"
-               FontWeight="SemiBold" />
+           Text="Email"
+           Style="{StaticResource CardTitleStyle}" />
             </Grid>
 
         </StackPanel>
