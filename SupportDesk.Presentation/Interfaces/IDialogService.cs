@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.UI.Xaml;
 using System.Threading.Tasks;
 
-namespace SupportDesk.Presentation.Interfaces
+namespace SupportDesk.Presentation.Interfaces;
+
+public interface IDialogService
 {
-    internal interface IDialogService
-    {
-    }
+    void SetXamlRoot(XamlRoot xamlRoot);
+
+    Task ShowMessageAsync(string title, string message);
+
+    Task ShowErrorAsync(string title, string message);
+
+    Task<bool> ShowConfirmAsync(string title, string message);
 }

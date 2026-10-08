@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.UI.Xaml.Controls;
 
-namespace SupportDesk.Presentation.Interfaces
+namespace SupportDesk.Presentation.Interfaces;
+
+public interface INavigationService
 {
-    internal interface INavigationService
-    {
-    }
+    void SetFrame(Frame frame);
+
+    void NavigateToDashboard();
+
+    void NavigateToTickets();
+
+    void NavigateToCustomers();
+
+    void NavigateToTicketDetail();
+
+    void GoBack();
+
+    bool CanGoBack { get; }
 }
