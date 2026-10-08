@@ -216,13 +216,64 @@
 
         <Setter Property="Template">
             <Setter.Value>
+
                 <ControlTemplate TargetType="Button">
 
                     <Border
+                    x:Name="ButtonBorder"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="{TemplateBinding CornerRadius}">
+
+                        <VisualStateManager.VisualStateGroups>
+
+                            <VisualStateGroup x:Name="CommonStates">
+
+                                <!-- NORMAL -->
+                                <VisualState x:Name="Normal"/>
+
+                                <!-- HOVER -->
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+
+                                        <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="ButtonBorder"
+                                        Storyboard.TargetProperty="Background">
+
+                                            <DiscreteObjectKeyFrame
+                                            KeyTime="0"
+                                            Value="#1D4ED8"/>
+
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                    </Storyboard>
+                                </VisualState>
+
+                                <!-- PRESSED -->
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+
+                                        <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="ButtonBorder"
+                                        Storyboard.TargetProperty="Background">
+
+                                            <DiscreteObjectKeyFrame
+                                            KeyTime="0"
+                                            Value="#1E40AF"/>
+
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                    </Storyboard>
+                                </VisualState>
+
+                                <!-- DISABLED -->
+                                <VisualState x:Name="Disabled"/>
+
+                            </VisualStateGroup>
+
+                        </VisualStateManager.VisualStateGroups>
+
 
                         <ContentPresenter
                         Content="{TemplateBinding Content}"
@@ -235,6 +286,7 @@
                     </Border>
 
                 </ControlTemplate>
+
             </Setter.Value>
         </Setter>
 
@@ -251,6 +303,120 @@
 
         <Setter Property="CornerRadius"
                 Value="10"/>
+
+    </Style>
+
+    <Style x:Key="DangerButtonStyle"
+       TargetType="Button">
+
+        <Setter Property="Padding"
+            Value="18,10"/>
+
+        <Setter Property="MinHeight"
+            Value="44"/>
+
+        <Setter Property="CornerRadius"
+            Value="10"/>
+
+        <Setter Property="Background"
+            Value="#DC2626"/>
+
+        <Setter Property="Foreground"
+            Value="White"/>
+
+        <Setter Property="BorderBrush"
+            Value="#DC2626"/>
+
+        <Setter Property="BorderThickness"
+            Value="0"/>
+
+        <Setter Property="FontWeight"
+            Value="SemiBold"/>
+
+        <Setter Property="HorizontalContentAlignment"
+            Value="Center"/>
+
+        <Setter Property="VerticalContentAlignment"
+            Value="Center"/>
+
+        <Setter Property="UseSystemFocusVisuals"
+            Value="False"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border
+                    x:Name="ButtonBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+
+                        <VisualStateManager.VisualStateGroups>
+
+                            <VisualStateGroup x:Name="CommonStates">
+
+                                <!-- NORMAL -->
+                                <VisualState x:Name="Normal"/>
+
+                                <!-- HOVER -->
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+
+                                        <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="ButtonBorder"
+                                        Storyboard.TargetProperty="Background">
+
+                                            <DiscreteObjectKeyFrame
+                                            KeyTime="0"
+                                            Value="#B91C1C"/>
+
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                    </Storyboard>
+                                </VisualState>
+
+                                <!-- PRESSED -->
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+
+                                        <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="ButtonBorder"
+                                        Storyboard.TargetProperty="Background">
+
+                                            <DiscreteObjectKeyFrame
+                                            KeyTime="0"
+                                            Value="#991B1B"/>
+
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                    </Storyboard>
+                                </VisualState>
+
+                                <!-- DISABLED -->
+                                <VisualState x:Name="Disabled"/>
+
+                            </VisualStateGroup>
+
+                        </VisualStateManager.VisualStateGroups>
+
+
+                        <ContentPresenter
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Foreground="{TemplateBinding Foreground}"/>
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
 
     </Style>
 
