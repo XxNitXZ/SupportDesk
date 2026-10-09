@@ -22,6 +22,7 @@ public static class DependencyInjection
         services.AddTransient<TicketDetailViewModel>();
         services.AddTransient<NewTicketViewModel>();
         services.AddTransient<NewCustomerViewModel>();
+        services.AddTransient<CustomerDetailViewModel>();
 
         // Views
         services.AddTransient<DashboardPage>();
@@ -30,6 +31,7 @@ public static class DependencyInjection
         services.AddTransient<TicketDetailPage>();
         services.AddTransient<NewTicketPage>();
         services.AddTransient<NewCustomerPage>();
+        services.AddTransient<CustomerDetailPage>();
 
         // MainWindow
         services.AddTransient<MainWindow>();
