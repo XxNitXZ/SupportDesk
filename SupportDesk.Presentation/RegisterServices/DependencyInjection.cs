@@ -8,10 +8,9 @@ namespace SupportDesk.Presentation.RegisterServices;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddPresentation(this IServiceCollection services)
+    public static IServiceCollection AddPresentation(
+        this IServiceCollection services)
     {
-
-
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IDialogService, DialogService>();
 
@@ -22,6 +21,7 @@ public static class DependencyInjection
         services.AddTransient<TicketsViewModel>();
         services.AddTransient<TicketDetailViewModel>();
         services.AddTransient<NewTicketViewModel>();
+        services.AddTransient<NewCustomerViewModel>();
 
         // Views
         services.AddTransient<DashboardPage>();
@@ -29,6 +29,7 @@ public static class DependencyInjection
         services.AddTransient<TicketsPage>();
         services.AddTransient<TicketDetailPage>();
         services.AddTransient<NewTicketPage>();
+        services.AddTransient<NewCustomerPage>();
 
         // MainWindow
         services.AddTransient<MainWindow>();

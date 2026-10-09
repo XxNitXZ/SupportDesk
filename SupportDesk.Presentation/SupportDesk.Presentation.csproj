@@ -21,6 +21,7 @@
     <None Remove="Resources\Styles.xaml" />
     <None Remove="Views\CustomersPage.xaml" />
     <None Remove="Views\DashboardPage.xaml" />
+    <None Remove="Views\NewCustomerPage.xaml" />
     <None Remove="Views\NewTicketPage.xaml" />
     <None Remove="Views\TicketDetailPage.xaml" />
     <None Remove="Views\TicketsPage.xaml" />
@@ -56,6 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SupportDesk.Infrastructure\SupportDesk.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\NewCustomerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\NewTicketPage.xaml">

@@ -1,6 +1,4 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.Interfaces;
 
@@ -16,9 +14,9 @@ public interface INavigationService
 
     void NavigateToNewTicket();
 
-    void NavigateToTicketDetail();
+    void NavigateToNewCustomer();
 
-    Task NavigateToTicketDetailAsync(Guid ticketId);
+    void NavigateToTicketDetail();
 
     void GoBack();
 

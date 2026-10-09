@@ -21,7 +21,15 @@ public class JsonFileHandler
 
     public async Task WriteAsync<T>(string filePath, List<T> data)
     {
+        string? directory = Path.GetDirectoryName(filePath);
+
+        if (!string.IsNullOrWhiteSpace(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
         string json = JsonSerializer.Serialize(data);
+
         await File.WriteAllTextAsync(filePath, json);
     }
 }

@@ -4,7 +4,6 @@ using SupportDesk.Presentation.Interfaces;
 using SupportDesk.Presentation.Views;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.Services;
 
@@ -21,7 +20,13 @@ public class NavigationService : INavigationService
         _serviceProvider = serviceProvider;
     }
 
-    public bool CanGoBack => _history.Count > 0;
+    public bool CanGoBack
+    {
+        get
+        {
+            return _history.Count > 0;
+        }
+    }
 
     public void SetFrame(Frame frame)
     {
@@ -30,46 +35,40 @@ public class NavigationService : INavigationService
 
     public void NavigateToDashboard()
     {
-        var page = _serviceProvider.GetRequiredService<DashboardPage>();
+        var page =
+            _serviceProvider.GetRequiredService<DashboardPage>();
 
         Navigate(page);
     }
 
     public void NavigateToTickets()
     {
-        var page = _serviceProvider.GetRequiredService<TicketsPage>();
+        var page =
+            _serviceProvider.GetRequiredService<TicketsPage>();
 
         Navigate(page);
     }
 
     public void NavigateToCustomers()
     {
-        var page = _serviceProvider.GetRequiredService<CustomersPage>();
+        var page =
+            _serviceProvider.GetRequiredService<CustomersPage>();
 
         Navigate(page);
     }
 
-    public void NavigateToNewTicket()
+    public void NavigateToNewCustomer()
     {
-        var page = _serviceProvider.GetRequiredService<NewTicketPage>();
+        var page =
+            _serviceProvider.GetRequiredService<NewCustomerPage>();
 
         Navigate(page);
     }
 
     public void NavigateToTicketDetail()
     {
-        var page = _serviceProvider.GetRequiredService<TicketDetailPage>();
-        Navigate(page);
-    }
-
-    public async Task NavigateToTicketDetailAsync(Guid ticketId)
-    {
-        if (_frame == null)
-            return;
-
-        var page = _serviceProvider.GetRequiredService<TicketDetailPage>();
-
-        await page.LoadTicketAsync(ticketId);
+        var page =
+            _serviceProvider.GetRequiredService<TicketDetailPage>();
 
         Navigate(page);
     }
@@ -82,6 +81,13 @@ public class NavigationService : INavigationService
         _frame.Content = _history.Pop();
     }
 
+    public void NavigateToNewTicket()
+    {
+        var page =
+            _serviceProvider.GetRequiredService<NewTicketPage>();
+
+        Navigate(page);
+    }
     private void Navigate(Page page)
     {
         if (_frame == null)

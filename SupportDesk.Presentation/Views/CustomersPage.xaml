@@ -1,68 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
     x:Class="SupportDesk.Presentation.Views.CustomersPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SupportDesk.Presentation.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    Background="{StaticResource AppBackgroundBrush}">
 
     <Grid>
-      <StackPanel Margin="24" Spacing="16">
 
-           <TextBlock Text="Customers"
-           Style="{StaticResource PageTitleStyle}"/>
-          
+        <StackPanel
+            Margin="24"
+            Spacing="16">
+
+            <TextBlock
+                Text="Customers"
+                Style="{StaticResource PageTitleStyle}"/>
+
             <Grid ColumnSpacing="12">
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox PlaceholderText="Search customers..." 
-                         Style="{StaticResource InputTextBoxStyle}"/>
-               
-                <Button Grid.Column="1"
-                        Content="+ Add Customer"
-                        Style="{StaticResource PrimaryButtonStyle}" />
-                
+                <TextBox
+                    PlaceholderText="Search customers..."
+                    Style="{StaticResource InputTextBoxStyle}"/>
+
+                <Button
+                    Grid.Column="1"
+                    Content="+ Add Customer"
+                    Click="AddCustomerButton_Click"
+                    Style="{StaticResource PrimaryButtonStyle}"/>
+
             </Grid>
 
             <Grid ColumnSpacing="16">
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <TextBlock
+                    Text="Name"
+                    Style="{StaticResource CardTitleStyle}"/>
 
-                <TextBlock Text="Name"
-           Style="{StaticResource CardTitleStyle}" />
+                <TextBlock
+                    Grid.Column="1"
+                    Text="Email"
+                    Style="{StaticResource CardTitleStyle}"/>
 
-                <TextBlock Grid.Column="1"
-           Text="Email"
-           Style="{StaticResource CardTitleStyle}" />
             </Grid>
 
             <ListView ItemsSource="{Binding Customers}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                        <Grid ColumnSpacing="16">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <TextBlock Text="{Binding Name}" />
 
-                            <TextBlock Grid.Column="1"
-           Text="{Binding Email}" />
-                            
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Grid ColumnSpacing="16">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Text="{Binding Name}"/>
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="{Binding Email}"/>
+
                         </Grid>
+
                     </DataTemplate>
-            </ListView.ItemTemplate>
+
+                </ListView.ItemTemplate>
+
             </ListView>
 
         </StackPanel>
+
     </Grid>
+
 </Page>
