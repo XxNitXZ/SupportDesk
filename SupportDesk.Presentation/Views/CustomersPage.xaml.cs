@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using SupportDesk.Domain;
 using SupportDesk.Presentation.Interfaces;
 using SupportDesk.Presentation.ViewModels;
 
@@ -38,4 +39,15 @@ public sealed partial class CustomersPage : Page
     {
         _navigationService.NavigateToNewCustomer();
     }
-}
+
+    private void CustomersList_ItemClick(
+        object sender,
+        ItemClickEventArgs e)
+    {
+        if (e.ClickedItem is Customer customer)
+        {
+            _navigationService.NavigateToCustomerDetail(
+                customer.Id);
+        }
+    }
+}   

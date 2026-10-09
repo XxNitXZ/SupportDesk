@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using System;
 
 namespace SupportDesk.Presentation.Interfaces;
 
@@ -17,6 +18,8 @@ public interface INavigationService
     void NavigateToNewCustomer();
 
     void NavigateToTicketDetail();
+
+    void NavigateToCustomerDetail(Guid customerId);
 
     void GoBack();
 

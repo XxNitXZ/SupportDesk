@@ -1,31 +1,43 @@
-﻿namespace SupportDesk.Domain;
+﻿using System.Text.Json.Serialization;
+
+namespace SupportDesk.Domain;
 
 public class Customer
 {
     public Guid Id { get; private set; }
+
     public string Name { get; private set; }
+
     public string Email { get; private set; }
 
     public Customer(string name, string email)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Name cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(email))
-            throw new ArgumentException("Email cannot be empty.");
-
-        name = name.Trim();
-        email = email.Trim();
-
-        if (!email.Contains('@'))
-            throw new ArgumentException("Email is not valid.");
+        Validate(name, email);
 
         Id = Guid.NewGuid();
-        Name = name;
-        Email = email;
+        Name = name.Trim();
+        Email = email.Trim();
+    }
+
+    [JsonConstructor]
+    public Customer(Guid id, string name, string email)
+    {
+        Validate(name, email);
+
+        Id = id;
+        Name = name.Trim();
+        Email = email.Trim();
     }
 
     public void UpdateContactInfo(string name, string email)
+    {
+        Validate(name, email);
+
+        Name = name.Trim();
+        Email = email.Trim();
+    }
+
+    private static void Validate(string name, string email)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Name cannot be empty.");
@@ -33,13 +45,7 @@ public class Customer
         if (string.IsNullOrWhiteSpace(email))
             throw new ArgumentException("Email cannot be empty.");
 
-        name = name.Trim();
-        email = email.Trim();
-
-        if (!email.Contains('@'))
+        if (!email.Trim().Contains('@'))
             throw new ArgumentException("Email is not valid.");
-
-        Name = name;
-        Email = email;
     }
 }
