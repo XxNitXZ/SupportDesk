@@ -9,6 +9,60 @@
     mc:Ignorable="d">
 
     <Grid>
+      <StackPanel Margin="24" Spacing="16">
 
+           <TextBlock Text="Customers"
+           Style="{StaticResource PageTitleStyle}"/>
+          
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox PlaceholderText="Search customers..." 
+                         Style="{StaticResource InputTextBoxStyle}"/>
+               
+                <Button Grid.Column="1"
+                        Content="+ Add Customer"
+                        Style="{StaticResource PrimaryButtonStyle}" />
+                
+            </Grid>
+
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Text="Name"
+           Style="{StaticResource CardTitleStyle}" />
+
+                <TextBlock Grid.Column="1"
+           Text="Email"
+           Style="{StaticResource CardTitleStyle}" />
+            </Grid>
+
+            <ListView ItemsSource="{Binding Customers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                        <Grid ColumnSpacing="16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="{Binding Name}" />
+
+                            <TextBlock Grid.Column="1"
+           Text="{Binding Email}" />
+                            
+                        </Grid>
+                    </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+
+        </StackPanel>
     </Grid>
 </Page>
