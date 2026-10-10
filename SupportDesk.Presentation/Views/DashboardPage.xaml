@@ -38,6 +38,7 @@
                 <!-- NEW -->
                 <Button
                     Grid.Column="0"
+                    Click="NewTicketsButton_Click"
                     Style="{StaticResource DashboardCardButtonStyle}">
 
                     <Grid>
@@ -94,6 +95,7 @@
                 <!-- IN PROGRESS -->
                 <Button
                     Grid.Column="1"
+                    Click="InProgressTicketsButton_Click"
                     Style="{StaticResource DashboardCardButtonStyle}">
 
                     <Grid>
@@ -150,6 +152,7 @@
                 <!-- RESOLVED -->
                 <Button
                     Grid.Column="2"
+                    Click="ResolvedTicketsButton_Click"
                     Style="{StaticResource DashboardCardButtonStyle}">
 
                     <Grid>

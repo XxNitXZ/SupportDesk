@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
     x:Class="SupportDesk.Presentation.Views.NewTicketPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -15,7 +16,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
         <!-- HEADER -->
         <StackPanel
             Grid.Row="0"
@@ -31,7 +31,6 @@
 
         </StackPanel>
 
-
         <!-- FORM -->
         <Grid
             Grid.Row="1"
@@ -42,7 +41,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
 
             <!-- TITLE -->
             <StackPanel
@@ -62,7 +60,6 @@
                     Height="44"/>
 
             </StackPanel>
-
 
             <!-- DESCRIPTION -->
             <StackPanel
@@ -87,7 +84,6 @@
 
             </StackPanel>
 
-
             <!-- BOTTOM AREA -->
             <Grid
                 Grid.Row="2"
@@ -98,7 +94,6 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
 
                 <!-- LEFT HALF -->
                 <StackPanel
@@ -125,7 +120,6 @@
 
                     </StackPanel>
 
-
                     <!-- PRIORITY -->
                     <StackPanel Spacing="6">
 
@@ -145,13 +139,30 @@
 
                     </StackPanel>
 
-                </StackPanel>
+                    <!-- TECHNICIAN -->
+                    <StackPanel Spacing="6">
 
+                        <TextBlock
+                            Text="Technician (optional)"
+                            Foreground="{StaticResource MainTextBrush}"
+                            FontSize="14"
+                            FontWeight="SemiBold"/>
+
+                        <TextBox
+                            PlaceholderText="Enter technician"
+                            Text="{Binding Technician, Mode=TwoWay}"
+                            Style="{StaticResource InputTextBoxStyle}"
+                            Height="44"
+                            HorizontalAlignment="Stretch"/>
+
+                    </StackPanel>
+
+                </StackPanel>
 
                 <!-- RIGHT HALF -->
                 <StackPanel
                     Grid.Column="1"
-                    Spacing="30"
+                    Spacing="12"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right">
 
@@ -165,7 +176,7 @@
                     <Button
                         Content="Cancel"
                         Click="CancelButton_Click"
-                        Style="{StaticResource DangerButtonStyle}"
+                        Style="{StaticResource SecondaryButtonStyle}"
                         Height="44"
                         Width="200"/>
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
+using SupportDesk.Domain.Tickets;
 using SupportDesk.Presentation.Interfaces;
 using SupportDesk.Presentation.Views;
 using System;
@@ -11,7 +12,6 @@ namespace SupportDesk.Presentation.Services;
 public class NavigationService : INavigationService
 {
     private readonly IServiceProvider _serviceProvider;
-
     private Frame? _frame;
 
     private readonly Stack<Page> _history = new();
@@ -50,6 +50,17 @@ public class NavigationService : INavigationService
         Navigate(page);
     }
 
+    public async Task NavigateToTicketsByStatusAsync(
+        TicketStatus status)
+    {
+        var page =
+            _serviceProvider.GetRequiredService<TicketsPage>();
+
+        await page.LoadByStatusAsync(status);
+
+        Navigate(page);
+    }
+
     public void NavigateToCustomers()
     {
         var page =
@@ -74,20 +85,10 @@ public class NavigationService : INavigationService
         Navigate(page);
     }
 
-    public void NavigateToTicketDetail()
+    public async Task NavigateToTicketDetailAsync(Guid ticketId)
     {
         var page =
             _serviceProvider.GetRequiredService<TicketDetailPage>();
-
-        Navigate(page);
-    }
-
-    public async Task NavigateToTicketDetailAsync(Guid ticketId)
-    {
-        if (_frame == null)
-            return;
-
-        var page = _serviceProvider.GetRequiredService<TicketDetailPage>();
 
         await page.LoadTicketAsync(ticketId);
 
