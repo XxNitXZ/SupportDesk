@@ -48,13 +48,18 @@
 
         public void ChangeStatus(TicketStatus status)
         {
+            if (!Enum.IsDefined(typeof(TicketStatus), status))
+            {
+                throw new ArgumentException("Invalid ticket status.");
+            }
+
             if (status == TicketStatus.InProgress || status == TicketStatus.Resolved)
             {
                 if (string.IsNullOrWhiteSpace(Technician))
                 {
-                    throw new ArgumentException("A technician is required for this status.");
+                    throw new ArgumentException(
+                        "A technician is required for this status.");
                 }
-
             }
             Status = status;
         }

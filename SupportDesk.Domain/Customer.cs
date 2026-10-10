@@ -1,3 +1,4 @@
+﻿using System;
 ﻿using System.Text.Json.Serialization;
 
 namespace SupportDesk.Domain;
@@ -11,16 +12,12 @@ public class Customer
     public string Email { get; private set; }
 
     public Customer(string name, string email)
+        : this(name, email, Guid.NewGuid())
     {
-        Validate(name, email);
-
-        Id = Guid.NewGuid();
-        Name = name.Trim();
-        Email = email.Trim();
     }
 
     [JsonConstructor]
-    public Customer(Guid id, string name, string email)
+    public Customer(string name, string email, Guid id)
     {
         Validate(name, email);
 
