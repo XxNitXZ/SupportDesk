@@ -1,6 +1,5 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using SupportDesk.Domain.Tickets;
 using SupportDesk.Presentation.Interfaces;
 using SupportDesk.Presentation.ViewModels;
@@ -40,20 +39,20 @@ public sealed partial class TicketsPage : Page
         _navigationService.NavigateToNewTicket();
     }
 
-    //private async void Ticket_Tapped(
-    //    object sender,
-    //    TappedRoutedEventArgs e)
-    //{
-    //    if (sender is FrameworkElement element &&
-    //        element.DataContext is SupportTicket ticket)
-    //    {
-    //        await _navigationService.NavigateToTicketDetailAsync(ticket.Id);
-    //    }
-    //}
-
-    private void OpenTicketDetails_Click(object sender, RoutedEventArgs e)
+    private async void TicketsList_ItemClick(
+    object sender,
+    ItemClickEventArgs e)
     {
-        _navigationService.NavigateToTicketDetail();
+        if (e.ClickedItem is SupportTicket ticket)
+        {
+            System.Diagnostics.Debug.WriteLine(
+                "TICKET CLICKED");
+
+            System.Diagnostics.Debug.WriteLine(
+               $"Opening ticket: {ticket.Id}");
+
+            await _navigationService.NavigateToTicketDetailAsync(ticket.Id);
+        }
     }
 
 }

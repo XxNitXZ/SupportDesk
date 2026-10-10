@@ -1,15 +1,22 @@
-﻿using SupportDesk.Application.Interfaces;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SupportDesk.Application.Interfaces;
 using SupportDesk.Domain.Tickets;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.ViewModels;
 
-public class TicketsViewModel
+public partial class TicketsViewModel : ObservableObject
 {
     private readonly ITicketService _ticketService;
 
-    public List<SupportTicket> Tickets { get; private set; } = new();
+    private List<SupportTicket> _tickets = new();
+
+    public List<SupportTicket> Tickets
+    {
+        get => _tickets;
+        private set => SetProperty(ref _tickets, value);
+    }
 
     public TicketsViewModel(ITicketService ticketService)
     {
@@ -18,9 +25,16 @@ public class TicketsViewModel
 
     public async Task LoadAsync()
     {
+
         Tickets = await _ticketService.GetAllAsync();
+
+        foreach (var ticket in Tickets)
+        {
+            System.Diagnostics.Debug.WriteLine(
+                $"LIST ID: {ticket.Id}");
+        }
+
         System.Diagnostics.Debug.WriteLine(
             $"Antal tickets: {Tickets.Count}");
     }
-
 }

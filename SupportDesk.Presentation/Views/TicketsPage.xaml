@@ -32,11 +32,6 @@
 
         </Grid>
 
-        <Button
-            Content="Open Ticket Details"
-            Click="OpenTicketDetails_Click"
-            Style="{StaticResource PrimaryButtonStyle}"/>
-
         <!-- COUNT -->
         <TextBlock
             Grid.Row="1"
@@ -48,33 +43,41 @@
         <!-- TICKETS -->
         <ListView
             Grid.Row="2"
-            ItemsSource="{Binding Tickets}">
+            ItemsSource="{Binding Tickets}"
+            IsItemClickEnabled="True"
+            ItemClick="TicketsList_ItemClick">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
 
                     <Border
                         Padding="16"
-                        Margin="0,0,0,10">
+                        Margin="0,0,0,10"
+                        Background="White"
+                        CornerRadius="8">
 
                         <StackPanel>
 
                             <TextBlock
                                 Text="{Binding Title}"
                                 FontSize="20"
-                                FontWeight="SemiBold"/>
+                                FontWeight="SemiBold"
+                                Foreground="#111827"/>
 
                             <TextBlock
                                 Text="{Binding Description}"
-                                Margin="0,5,0,0"/>
+                                Margin="0,5,0,0"
+                                Foreground="#374151"/>
 
                             <TextBlock
                                 Text="{Binding Status}"
-                                Margin="0,5,0,0"/>
+                                Margin="0,5,0,0"
+                                Foreground="#374151"/>
 
                             <TextBlock
                                 Text="{Binding Priority}"
-                                Margin="0,5,0,0"/>
+                                Margin="0,5,0,0"
+                                Foreground="#374151"/>
 
                         </StackPanel>
 

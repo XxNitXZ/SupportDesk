@@ -4,6 +4,7 @@ using SupportDesk.Presentation.Interfaces;
 using SupportDesk.Presentation.Views;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.Services;
 
@@ -77,6 +78,18 @@ public class NavigationService : INavigationService
     {
         var page =
             _serviceProvider.GetRequiredService<TicketDetailPage>();
+
+        Navigate(page);
+    }
+
+    public async Task NavigateToTicketDetailAsync(Guid ticketId)
+    {
+        if (_frame == null)
+            return;
+
+        var page = _serviceProvider.GetRequiredService<TicketDetailPage>();
+
+        await page.LoadTicketAsync(ticketId);
 
         Navigate(page);
     }
