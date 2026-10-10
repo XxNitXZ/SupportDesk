@@ -1,4 +1,6 @@
-﻿namespace SupportDesk.Domain.Tickets
+﻿using System.Text.Json.Serialization;
+
+namespace SupportDesk.Domain.Tickets
 {
     public class SupportTicket
     {

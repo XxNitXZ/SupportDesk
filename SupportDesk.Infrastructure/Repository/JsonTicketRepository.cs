@@ -23,6 +23,13 @@ public class JsonTicketRepository : ITicketRepository
     {
         var tickets = await GetAllAsync();
 
+        System.Diagnostics.Debug.WriteLine($"SEARCH ID: {id}");
+
+        foreach (var ticket in tickets)
+        {
+            System.Diagnostics.Debug.WriteLine($"LOADED ID: {ticket.Id}");
+        }
+
         return tickets.FirstOrDefault(ticket => ticket.Id == id);
     }
 
