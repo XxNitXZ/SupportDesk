@@ -57,6 +57,14 @@ public class NavigationService : INavigationService
         Navigate(page);
     }
 
+    public void NavigateToNewTicket()
+    {
+        var page =
+            _serviceProvider.GetRequiredService<NewTicketPage>();
+
+        Navigate(page);
+    }
+
     public void NavigateToNewCustomer()
     {
         var page =
@@ -73,6 +81,16 @@ public class NavigationService : INavigationService
         Navigate(page);
     }
 
+    public void NavigateToCustomerDetail(Guid customerId)
+    {
+        var page =
+            _serviceProvider.GetRequiredService<CustomerDetailPage>();
+
+        page.SetCustomerId(customerId);
+
+        Navigate(page);
+    }
+
     public void GoBack()
     {
         if (_frame == null || !CanGoBack)
@@ -81,13 +99,6 @@ public class NavigationService : INavigationService
         _frame.Content = _history.Pop();
     }
 
-    public void NavigateToNewTicket()
-    {
-        var page =
-            _serviceProvider.GetRequiredService<NewTicketPage>();
-
-        Navigate(page);
-    }
     private void Navigate(Page page)
     {
         if (_frame == null)
