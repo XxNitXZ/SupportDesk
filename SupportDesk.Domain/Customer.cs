@@ -1,4 +1,7 @@
-﻿namespace SupportDesk.Domain;
+﻿using System;
+using System.Text.Json.Serialization;
+
+namespace SupportDesk.Domain;
 
 public class Customer
 {
@@ -7,6 +10,12 @@ public class Customer
     public string Email { get; private set; }
 
     public Customer(string name, string email)
+        : this(name, email, Guid.NewGuid())
+    {
+    }
+
+    [JsonConstructor]
+    public Customer(string name, string email, Guid id)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Name cannot be empty.");
@@ -20,7 +29,7 @@ public class Customer
         if (!email.Contains('@'))
             throw new ArgumentException("Email is not valid.");
 
-        Id = Guid.NewGuid();
+        Id = id;
         Name = name;
         Email = email;
     }
