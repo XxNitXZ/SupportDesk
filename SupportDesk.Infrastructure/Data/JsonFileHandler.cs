@@ -20,10 +20,10 @@ public class JsonFileHandler
 
             System.Diagnostics.Debug.WriteLine($"JSON CONTENT: {json}");
 
+            // Helt tom fil räknas som att det inte finns någon data ännu
             if (string.IsNullOrWhiteSpace(json))
             {
-                throw new InvalidOperationException(
-                    $"Could not load '{Path.GetFileName(filePath)}'. The data file is empty or invalid.");
+                return new List<T>();
             }
 
             return JsonSerializer.Deserialize<List<T>>(json)
