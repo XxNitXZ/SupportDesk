@@ -1,4 +1,6 @@
-﻿namespace SupportDesk.Domain.Tickets;
+﻿using System.Text.Json.Serialization;
+
+namespace SupportDesk.Domain.Tickets;
 
 public class Comment
 {
@@ -10,7 +12,17 @@ public class Comment
         if (string.IsNullOrWhiteSpace(text))
             throw new ArgumentException("Comment cannot be empty");
 
-        Text = text;
+        Text = text.Trim();
         CreatedAt = DateTime.Now;
+    }
+
+    [JsonConstructor]
+    public Comment(string text, DateTime createdAt)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            throw new ArgumentException("Comment cannot be empty");
+
+        Text = text.Trim();
+        CreatedAt = createdAt;
     }
 }

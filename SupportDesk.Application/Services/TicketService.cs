@@ -1,5 +1,9 @@
 ﻿using SupportDesk.Application.Interfaces;
 using SupportDesk.Domain.Tickets;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SupportDesk.Application.Services;
 
@@ -18,7 +22,11 @@ public class TicketService : ITicketService
 
     public async Task<List<SupportTicket>> GetAllAsync()
     {
-        return await _ticketRepository.GetAllAsync();
+        var tickets = await _ticketRepository.GetAllAsync();
+
+        return tickets
+            .OrderByDescending(ticket => ticket.CreatedAt)
+            .ToList();
     }
 
     public async Task<SupportTicket?> GetByIdAsync(Guid id)
@@ -30,7 +38,8 @@ public class TicketService : ITicketService
         string title,
         string description,
         Guid customerId,
-        TicketPriority priority)
+        TicketPriority priority,
+        string? technician)
     {
         var customer = await _customerRepository.GetByIdAsync(customerId);
 
@@ -45,7 +54,41 @@ public class TicketService : ITicketService
             customer,
             priority);
 
+        if (!string.IsNullOrWhiteSpace(technician))
+        {
+            ticket.AssignTechnician(technician);
+        }
+
         await _ticketRepository.AddAsync(ticket);
+    }
+
+    public async Task UpdateTicketAsync(
+        Guid id,
+        string title,
+        string description,
+        TicketPriority priority,
+        string? technician,
+        TicketStatus status)
+    {
+        var ticket = await _ticketRepository.GetByIdAsync(id);
+
+        if (ticket == null)
+        {
+            throw new ArgumentException("Ticket was not found.");
+        }
+
+        ticket.UpdateDetails(title, description);
+
+        ticket.ChangePriority(priority);
+
+        if (!string.IsNullOrWhiteSpace(technician))
+        {
+            ticket.AssignTechnician(technician);
+        }
+
+        ticket.ChangeStatus(status);
+
+        await _ticketRepository.UpdateAsync(ticket);
     }
 
     public async Task UpdateAsync(
@@ -53,9 +96,16 @@ public class TicketService : ITicketService
         string title,
         string description)
     {
-        var ticket = await GetTicketOrThrowAsync(id);
+        var ticket = await _ticketRepository.GetByIdAsync(id);
 
-        ticket.UpdateDetails(title, description);
+        if (ticket == null)
+        {
+            throw new ArgumentException("Ticket was not found.");
+        }
+
+        ticket.UpdateDetails(
+            title,
+            description);
 
         await _ticketRepository.UpdateAsync(ticket);
     }
@@ -64,7 +114,12 @@ public class TicketService : ITicketService
         Guid id,
         string technician)
     {
-        var ticket = await GetTicketOrThrowAsync(id);
+        var ticket = await _ticketRepository.GetByIdAsync(id);
+
+        if (ticket == null)
+        {
+            throw new ArgumentException("Ticket was not found.");
+        }
 
         ticket.AssignTechnician(technician);
 
@@ -75,7 +130,12 @@ public class TicketService : ITicketService
         Guid id,
         TicketPriority priority)
     {
-        var ticket = await GetTicketOrThrowAsync(id);
+        var ticket = await _ticketRepository.GetByIdAsync(id);
+
+        if (ticket == null)
+        {
+            throw new ArgumentException("Ticket was not found.");
+        }
 
         ticket.ChangePriority(priority);
 
@@ -86,7 +146,12 @@ public class TicketService : ITicketService
         Guid id,
         TicketStatus status)
     {
-        var ticket = await GetTicketOrThrowAsync(id);
+        var ticket = await _ticketRepository.GetByIdAsync(id);
+
+        if (ticket == null)
+        {
+            throw new ArgumentException("Ticket was not found.");
+        }
 
         ticket.ChangeStatus(status);
 
@@ -97,7 +162,12 @@ public class TicketService : ITicketService
         Guid id,
         string text)
     {
-        var ticket = await GetTicketOrThrowAsync(id);
+        var ticket = await _ticketRepository.GetByIdAsync(id);
+
+        if (ticket == null)
+        {
+            throw new ArgumentException("Ticket was not found.");
+        }
 
         var comment = new Comment(text);
 
@@ -109,7 +179,7 @@ public class TicketService : ITicketService
     public async Task<List<SupportTicket>> SearchAsync(
         string searchTerm)
     {
-        var tickets = await _ticketRepository.GetAllAsync();
+        var tickets = await GetAllAsync();
 
         if (string.IsNullOrWhiteSpace(searchTerm))
         {
@@ -119,11 +189,12 @@ public class TicketService : ITicketService
         searchTerm = searchTerm.Trim();
 
         return tickets
-            .Where(t =>
-                t.Title.Contains(
+            .Where(ticket =>
+                ticket.Title.Contains(
                     searchTerm,
-                    StringComparison.OrdinalIgnoreCase) ||
-                t.Description.Contains(
+                    StringComparison.OrdinalIgnoreCase)
+                ||
+                ticket.Customer.Name.Contains(
                     searchTerm,
                     StringComparison.OrdinalIgnoreCase))
             .ToList();
@@ -132,10 +203,10 @@ public class TicketService : ITicketService
     public async Task<List<SupportTicket>> FilterByStatusAsync(
         TicketStatus status)
     {
-        var tickets = await _ticketRepository.GetAllAsync();
+        var tickets = await GetAllAsync();
 
         return tickets
-            .Where(t => t.Status == status)
+            .Where(ticket => ticket.Status == status)
             .ToList();
     }
 
@@ -143,22 +214,24 @@ public class TicketService : ITicketService
         string searchTerm,
         TicketStatus status)
     {
-        var tickets = await SearchAsync(searchTerm);
+        var tickets = await FilterByStatusAsync(status);
 
-        return tickets
-            .Where(t => t.Status == status)
-            .ToList();
-    }
-
-    private async Task<SupportTicket> GetTicketOrThrowAsync(Guid id)
-    {
-        var ticket = await _ticketRepository.GetByIdAsync(id);
-
-        if (ticket == null)
+        if (string.IsNullOrWhiteSpace(searchTerm))
         {
-            throw new ArgumentException("Ticket was not found.");
+            return tickets;
         }
 
-        return ticket;
+        searchTerm = searchTerm.Trim();
+
+        return tickets
+            .Where(ticket =>
+                ticket.Title.Contains(
+                    searchTerm,
+                    StringComparison.OrdinalIgnoreCase)
+                ||
+                ticket.Customer.Name.Contains(
+                    searchTerm,
+                    StringComparison.OrdinalIgnoreCase))
+            .ToList();
     }
 }

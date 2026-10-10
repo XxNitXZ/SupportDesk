@@ -8,9 +8,11 @@ namespace SupportDesk.Application.Interfaces
 
         Task<SupportTicket?> GetByIdAsync(Guid id);
 
-        Task AddAsync(string title, string description, Guid customerId, TicketPriority priority);
+        Task AddAsync(string title, string description, Guid customerId, TicketPriority priority, string? technician);
 
         Task UpdateAsync(Guid id, string title, string description);
+
+        Task UpdateTicketAsync(Guid id, string title, string description, TicketPriority priority, string? technician, TicketStatus status);
 
         Task AssignTechnicianAsync(Guid id, string technician);
 
@@ -25,6 +27,5 @@ namespace SupportDesk.Application.Interfaces
         Task<List<SupportTicket>> FilterByStatusAsync(TicketStatus status);
 
         Task<List<SupportTicket>> SearchAndFilterAsync(string searchTerm, TicketStatus status);
-
     }
 }

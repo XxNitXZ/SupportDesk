@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using SupportDesk.Domain.Tickets;
 using System;
 using System.Threading.Tasks;
 
@@ -12,13 +13,14 @@ public interface INavigationService
 
     void NavigateToTickets();
 
+    Task NavigateToTicketsByStatusAsync(TicketStatus status);
+
     void NavigateToCustomers();
 
     void NavigateToNewTicket();
 
     void NavigateToNewCustomer();
 
-    void NavigateToTicketDetail();
     Task NavigateToTicketDetailAsync(Guid ticketId);
 
     void NavigateToCustomerDetail(Guid customerId);

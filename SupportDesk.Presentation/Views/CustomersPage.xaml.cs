@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 using SupportDesk.Domain;
 using SupportDesk.Presentation.Interfaces;
 using SupportDesk.Presentation.ViewModels;
+using System;
 
 namespace SupportDesk.Presentation.Views;
 
@@ -11,15 +12,18 @@ public sealed partial class CustomersPage : Page
     public CustomersViewModel ViewModel { get; }
 
     private readonly INavigationService _navigationService;
+    private readonly IDialogService _dialogService;
 
     public CustomersPage(
         CustomersViewModel viewModel,
-        INavigationService navigationService)
+        INavigationService navigationService,
+        IDialogService dialogService)
     {
         InitializeComponent();
 
         ViewModel = viewModel;
         _navigationService = navigationService;
+        _dialogService = dialogService;
 
         DataContext = ViewModel;
 
@@ -30,7 +34,16 @@ public sealed partial class CustomersPage : Page
         object sender,
         RoutedEventArgs e)
     {
-        await ViewModel.LoadAsync();
+        try
+        {
+            await ViewModel.LoadAsync();
+        }
+        catch (Exception ex)
+        {
+            await _dialogService.ShowErrorAsync(
+                "An error occurred",
+                ex.Message);
+        }
     }
 
     private void AddCustomerButton_Click(
@@ -50,4 +63,4 @@ public sealed partial class CustomersPage : Page
                 customer.Id);
         }
     }
-}   
+}

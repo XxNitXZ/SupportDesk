@@ -10,6 +10,8 @@ public partial class TicketsViewModel : ObservableObject
 {
     private readonly ITicketService _ticketService;
 
+    private TicketStatus? _currentStatus = null;
+
     private List<SupportTicket> _tickets = new();
 
     public List<SupportTicket> Tickets
@@ -25,16 +27,46 @@ public partial class TicketsViewModel : ObservableObject
 
     public async Task LoadAsync()
     {
+        _currentStatus = null;
 
         Tickets = await _ticketService.GetAllAsync();
+    }
 
-        foreach (var ticket in Tickets)
+    public async Task LoadByStatusAsync(TicketStatus status)
+    {
+        _currentStatus = status;
+
+        Tickets = await _ticketService.FilterByStatusAsync(status);
+    }
+
+    public async Task ApplyFilterAsync(string searchTerm, TicketStatus? status)
+    {
+        _currentStatus = status;
+
+        if (string.IsNullOrWhiteSpace(searchTerm))
         {
-            System.Diagnostics.Debug.WriteLine(
-                $"LIST ID: {ticket.Id}");
+            if (status == null)
+            {
+                Tickets = await _ticketService.GetAllAsync();
+            }
+            else
+            {
+                Tickets = await _ticketService.FilterByStatusAsync(
+                    status.Value);
+            }
+
+            return;
         }
 
-        System.Diagnostics.Debug.WriteLine(
-            $"Antal tickets: {Tickets.Count}");
+        if (status == null)
+        {
+            Tickets = await _ticketService.SearchAsync(searchTerm);
+        }
+        else
+        {
+            Tickets = await _ticketService.SearchAndFilterAsync(
+                searchTerm,
+                status.Value);
+        }
     }
 }

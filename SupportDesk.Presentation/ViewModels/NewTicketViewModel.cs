@@ -37,6 +37,8 @@ public class NewTicketViewModel : ObservableObject
 
     public string Description { get; set; } = string.Empty;
 
+    public string Technician { get; set; } = string.Empty;
+
     public Customer? SelectedCustomer { get; set; }
 
     public TicketPriority SelectedPriority { get; set; }
@@ -50,17 +52,16 @@ public class NewTicketViewModel : ObservableObject
     public async Task CreateTicketAsync()
     {
         if (SelectedCustomer == null)
-            throw new ArgumentException("Please select a customer.");
-
-        System.Diagnostics.Debug.WriteLine(
-            $"SELECTED CUSTOMER: {SelectedCustomer.Name}");
-        System.Diagnostics.Debug.WriteLine(
-            $"SELECTED CUSTOMER ID: {SelectedCustomer.Id}");
+        {
+            throw new ArgumentException(
+                "Please select a customer.");
+        }
 
         await _ticketService.AddAsync(
             Title,
             Description,
             SelectedCustomer.Id,
-            SelectedPriority);
+            SelectedPriority,
+            Technician);
     }
 }
