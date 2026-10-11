@@ -35,6 +35,12 @@ public class JsonFileHandler
                 $"Could not load '{Path.GetFileName(filePath)}'. The data file contains invalid JSON.",
                 ex);
         }
+        catch (ArgumentException ex)
+        {
+            throw new InvalidOperationException(
+                $"Could not load '{Path.GetFileName(filePath)}'. The data file contains invalid data.",
+                ex);
+        }
         catch (UnauthorizedAccessException ex)
         {
             throw new InvalidOperationException(

@@ -35,7 +35,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="SupportDesk.Presentation"
+        DisplayName="SupportDesk"
         Description="SupportDesk.Presentation"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
