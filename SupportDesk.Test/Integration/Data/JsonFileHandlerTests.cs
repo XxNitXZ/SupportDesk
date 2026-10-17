@@ -1,5 +1,4 @@
-﻿
-using SupportDesk.Infrastructure.Data;
+﻿using SupportDesk.Infrastructure.Data;
 using System.Text.Json;
 using Xunit;
 
@@ -60,7 +59,6 @@ public class JsonFileHandlerTests
         Assert.Empty(result);
     }
 
-
     [Fact]
     public async Task WriteAsync_Should_SaveDataToJsonFile()
     {
@@ -73,7 +71,7 @@ public class JsonFileHandlerTests
 
         var customers = new List<TestCustomer>
         {
-           new TestCustomer { Name = "Anna" }
+            new TestCustomer { Name = "Anna" }
         };
 
         try
@@ -101,7 +99,6 @@ public class JsonFileHandlerTests
             }
         }
     }
-
 
     [Fact]
     public async Task ReadAsync_Should_ReturnEmptyListWhenFileIsEmpty()
@@ -132,7 +129,6 @@ public class JsonFileHandlerTests
         }
     }
 
-
     [Fact]
     public async Task ReadAsync_Should_ThrowInvalidOperationExceptionWhenJsonIsInvalid()
     {
@@ -153,6 +149,9 @@ public class JsonFileHandlerTests
 
             // Assert
             Assert.Contains("invalid JSON", exception.Message);
+
+            // Check that the original file content is preserved
+            Assert.Equal("[{", await File.ReadAllTextAsync(filePath));
         }
         finally
         {
@@ -174,9 +173,9 @@ public class JsonFileHandlerTests
         string filePath = Path.Combine(directoryPath, "customers.json");
 
         var customers = new List<TestCustomer>
-    {
-        new TestCustomer { Name = "Anna" }
-    };
+        {
+            new TestCustomer { Name = "Anna" }
+        };
 
         var handler = new JsonFileHandler();
 
@@ -197,5 +196,4 @@ public class JsonFileHandlerTests
             }
         }
     }
-
 }
