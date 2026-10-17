@@ -16,10 +16,11 @@ public class JsonCustomerRepository : ICustomerRepository
         _jsonFileHandler = jsonFileHandler;
         _filePath = filePath ?? DataPaths.CustomerFilePath;
     }
+
     public async Task<List<Customer>> GetAllAsync()
     {
         return await _jsonFileHandler.ReadAsync<Customer>(
-            DataPaths.CustomerFilePath);
+            _filePath);
     }
 
     public async Task<Customer?> GetByIdAsync(Guid id)
@@ -27,13 +28,12 @@ public class JsonCustomerRepository : ICustomerRepository
         var customers = await GetAllAsync();
 
         System.Diagnostics.Debug.WriteLine(
-                $"LOOKING FOR ID: {id}");
+            $"LOOKING FOR ID: {id}");
 
         foreach (var customer in customers)
         {
             System.Diagnostics.Debug.WriteLine(
                 $"CUSTOMER FROM JSON: {customer.Name} / ID: {customer.Id}");
-
         }
 
         return customers.FirstOrDefault(customer => customer.Id == id);
@@ -46,7 +46,7 @@ public class JsonCustomerRepository : ICustomerRepository
         customers.Add(customer);
 
         await _jsonFileHandler.WriteAsync(
-            DataPaths.CustomerFilePath,
+            _filePath,
             customers);
     }
 
@@ -64,7 +64,7 @@ public class JsonCustomerRepository : ICustomerRepository
         customers[index] = customer;
 
         await _jsonFileHandler.WriteAsync(
-            DataPaths.CustomerFilePath,
+            _filePath,
             customers);
     }
 }
