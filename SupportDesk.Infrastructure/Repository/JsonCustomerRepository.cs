@@ -7,12 +7,15 @@ namespace SupportDesk.Infrastructure.Repository;
 public class JsonCustomerRepository : ICustomerRepository
 {
     private readonly JsonFileHandler _jsonFileHandler;
+    private readonly string _filePath;
 
-    public JsonCustomerRepository(JsonFileHandler jsonFileHandler)
+    public JsonCustomerRepository(
+        JsonFileHandler jsonFileHandler,
+        string? filePath = null)
     {
         _jsonFileHandler = jsonFileHandler;
+        _filePath = filePath ?? DataPaths.CustomerFilePath;
     }
-
     public async Task<List<Customer>> GetAllAsync()
     {
         return await _jsonFileHandler.ReadAsync<Customer>(

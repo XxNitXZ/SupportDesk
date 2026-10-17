@@ -7,16 +7,20 @@ namespace SupportDesk.Infrastructure.Repository;
 public class JsonTicketRepository : ITicketRepository
 {
     private readonly JsonFileHandler _jsonFileHandler;
+    private readonly string _filePath;
 
-    public JsonTicketRepository(JsonFileHandler jsonFileHandler)
+    public JsonTicketRepository(
+        JsonFileHandler jsonFileHandler,
+        string? filePath = null)
     {
         _jsonFileHandler = jsonFileHandler;
+        _filePath = filePath ?? DataPaths.TicketsFilePath;
     }
 
     public async Task<List<SupportTicket>> GetAllAsync()
     {
         return await _jsonFileHandler.ReadAsync<SupportTicket>(
-            DataPaths.TicketsFilePath);
+            _filePath);
     }
 
     public async Task<SupportTicket?> GetByIdAsync(Guid id)
@@ -40,7 +44,7 @@ public class JsonTicketRepository : ITicketRepository
         tickets.Add(ticket);
 
         await _jsonFileHandler.WriteAsync(
-            DataPaths.TicketsFilePath,
+            _filePath,
             tickets);
     }
 
@@ -59,7 +63,7 @@ public class JsonTicketRepository : ITicketRepository
         tickets[index] = ticket;
 
         await _jsonFileHandler.WriteAsync(
-            DataPaths.TicketsFilePath,
+            _filePath,
             tickets);
     }
 }
