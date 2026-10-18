@@ -11,7 +11,7 @@ Syftet med SupportDesk är att ge ett mindre IT-företag ett enkelt sätt att re
 ## Gruppmedlemmar
 
 - Farhad Amiri
-- Lily Esther Boycen
+- Lily Esther Boyce
 - Nitin Kumar
 - Stelian Arama
 
